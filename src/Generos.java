@@ -1,4 +1,8 @@
-package PACKAGE_NAME;
-
 public class Generos {
-}
+
+public enum GENERO {
+	AÇÃO,
+	COMEDIA,
+	AVENTURA,
+
+}}

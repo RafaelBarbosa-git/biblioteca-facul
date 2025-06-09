@@ -4,24 +4,40 @@ import java.util.Scanner;
 
 public class Biblioteca {
     //ArrayList<Material> materiais = new ArrayList<>();
-    ArrayList<Livros> livros = new ArrayList<>();
-    ArrayList<Revistas> revistas = new ArrayList<>();
-    Scanner scanner = new Scanner(System.in);
+    ArrayList<Livros> livros;
+    ArrayList<Revistas> revistas;
+    public Biblioteca(){
+        this.livros = new ArrayList<>();
+        this.revistas = new ArrayList<>();
+    }
+
     String loop;
-    public String pergunta(){
+
+    public int menu(int opcao, Scanner scanner) {
+		System.out.print("\nO que você deseja?\n____________\n1) Adicionar Novo Material"
+				+ "\n2) Pesquisar Material por Título" + "\n3) Excluir Material pelo Título"
+				+ "\n4) Listar Material\n5) Sair do Sistema"
+				+ "\n____________\nDigite o número da opção que deseja: "); // menu
+		opcao = scanner.nextInt();
+		scanner.nextLine();
+		return opcao;
+	}
+
+
+    public String pergunta(Scanner scanner){
         System.out.print("Digite sua opção: ");
         String tipo = scanner.nextLine();
         return tipo;
     }
-    public String nome(){
+    public String nome(Scanner scanner){
         System.out.print("Digite o nome do material que deseja excluir: ");
             String nome = scanner.nextLine();
             return nome;
     }
-    public void listarMateriais() {
+    public void listarMateriais(Scanner scanner) {
         System.out.println("Gostaria de listar os livros ou as revistas?");
         do {
-            String tipo = pergunta();
+            String tipo = pergunta(scanner);
             if (tipo.equalsIgnoreCase("revistas")) {
                 if (this.revistas.isEmpty()) {
                     System.out.println("Nenhuma revista cadastrado.");
@@ -32,7 +48,7 @@ public class Biblioteca {
                         indice ++;
                         System.out.println(indice + "°:\n");
                         System.out.println("- Titulo = " + m.getTitulo());
-                        System.out.println("- Autor = " + m.getAutor() + "\n_______");
+                        System.out.println("- Autor = " + m.getAutor() + "\n___");
                     }
                 }
                 loop = "opção válida";
@@ -49,38 +65,52 @@ public class Biblioteca {
                 loop = "opção válida";
             } else {
                 loop = "Opção inválida! Digite 'Livros' ou 'Revistas'.";
+                System.out.println(loop);
             }
         }while (loop.equals("Opção inválida! Digite 'Livros' ou 'Revistas'."));
     }
-    public void pesquisarMaterial(Scanner scanner) {
+    void pesquisarMaterial(Scanner scanner) {
         System.out.println("Gostaria de excluir um livro ou uma revista?");
         do {
-            String tipo = pergunta();
-            String nome = nome();
+            String tipo = pergunta(scanner);
+
 		    if (tipo.equalsIgnoreCase("Revista")) {
                 loop = "opção válida";
-			    boolean encontrado = false;
-			    for (Revistas revista : revistas) {
-				    if (revista.getTitulo().equalsIgnoreCase(nome)) {
-					    System.out.println("Revista encontrada: " + revista.toString());
-					    encontrado = true;
-				    }
-			    }
-			    if (!encontrado) {
-				    System.out.println("Nenhuma revista com esse nome foi encontrada.");
-			    }
+                if (revistas.isEmpty()){
+                    System.out.println("A lista ainda está vazia!");
+                }
+                else {
+
+                    boolean encontrado = false;
+                    String nome = nome(scanner);
+                    for (Revistas revista : revistas) {
+                        if (revista.getTitulo().equalsIgnoreCase(nome)) {
+                            System.out.println("Revista encontrada: " + revista.toString());
+                            encontrado = true;
+                        }
+                    }
+                    if (!encontrado) {
+                        System.out.println("Nenhuma revista com esse nome foi encontrada.");
+                    }
+                }
 		    } else if (tipo.equalsIgnoreCase("Livro")) {
                 loop = "opção válida";
-			    boolean encontrado = false;
-			    for (Livros livro : livros) {
-				    if (livro.getTitulo().equalsIgnoreCase(nome)) {
-					    System.out.println("Livro encontrado: " + livro.toString());
-					    encontrado = true;
-				    }
-			    }
-			    if (!encontrado) {
-				    System.out.println("Nenhum livro com esse nome foi encontrado.");
-			    }
+                if (livros.isEmpty()){
+                    System.out.println("A lista ainda está vazia!");
+                }
+                else {
+                    boolean encontrado = false;
+                    String nome = nome(scanner);
+                    for (Livros livro : livros) {
+                        if (livro.getTitulo().equalsIgnoreCase(nome)) {
+                            System.out.println("Livro encontrado: " + livro.toString());
+                            encontrado = true;
+                        }
+                    }
+                    if (!encontrado) {
+                        System.out.println("Nenhum livro com esse nome foi encontrado.");
+                    }
+                }
 		    } else {
                 loop = "Opção inválida! Digite 'Livro' ou 'Revista'.";
 			    System.out.println(loop);
@@ -92,39 +122,49 @@ public class Biblioteca {
 
 		System.out.println("Gostaria de excluir um livro ou uma revista?");
         do {
-            String tipo = pergunta();
-            String nome = nome();
+            String tipo = pergunta(scanner);
+
 
             boolean removido = false;
 
             if (tipo.equalsIgnoreCase("Revista")) {
                 loop = "opção válida";
-                for (int i = 0; i < revistas.size(); i++) {
-                    if (revistas.get(i).getTitulo().equalsIgnoreCase(nome)) {
-                        revistas.remove(i);
-                        System.out.println("Revista excluida com sucesso!");
-                        removido = true;
-                        break;
+                if (revistas.isEmpty()){
+                    System.out.println("Operação inválida! A lista ainda está vazia.");
+                }
+                else {
+                    String nome = nome(scanner);
+                    for (int i = 0; i < revistas.size(); i++) {
+                        if (revistas.get(i).getTitulo().equalsIgnoreCase(nome)) {
+                            revistas.remove(i);
+                            System.out.println("Revista excluida com sucesso!");
+                            removido = true;
+                            break;
+                        }
+                    }
+                    if (!removido) {
+                        System.out.println("Nenhuma revista com esse número de páginas foi encontrada.");
                     }
                 }
-                if (!removido) {
-                    System.out.println("Nenhuma revista com esse número de páginas foi encontrada.");
-                }
-
             } else if (tipo.equalsIgnoreCase("Livro")) {
                 loop = "opção válida";
-                for (int i = 0; i < livros.size(); i++) {
-                    if (livros.get(i).getTitulo().equalsIgnoreCase(nome)) {
-                        livros.remove(i);
-                        System.out.println("Livro excluido com sucesso!");
-                        removido = true;
-                        break;
+                if (livros.isEmpty()){
+                    System.out.println("Operação inválida! A lista ainda está vazia.");
+                }
+                else {
+                    String nome = nome(scanner);
+                    for (int i = 0; i < livros.size(); i++) {
+                        if (livros.get(i).getTitulo().equalsIgnoreCase(nome)) {
+                            livros.remove(i);
+                            System.out.println("Livro excluido com sucesso!");
+                            removido = true;
+                            break;
+                        }
+                    }
+                    if (!removido) {
+                        System.out.println("Nenhum livro com esse nome foi encontrado.");
                     }
                 }
-                if (!removido) {
-                    System.out.println("Nenhum livro com esse nome foi encontrado.");
-                }
-
             } else {
                 loop = "Opção inválida! Digite 'Livro' ou 'Revista'.";
 			    System.out.println(loop);
