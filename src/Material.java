@@ -1,24 +1,30 @@
+package projeto_2fase;
+
 public abstract class Material {
-    private String titulo;
-    private String autor;
 
-    public Material(String titulo, String autor) {
-        this.titulo = titulo;
-        this.autor = autor;
-    }
+	protected String titulo;
+	private String autor;
 
-    public String getTitulo() {
-        return titulo;
-    }
+	public Material(String titulo, String autor) {
+		this.setTitulo(titulo);
+		this.autor = autor;
+	}
 
-    public String getAutor() {
-        return autor;
-    }
+	public String getTitulo() {
+		return titulo;
+	}
 
-    @Override
-    public String toString() {
-        return "Material:" +
-                "\n- titulo='" + titulo +
-                "\n- autor='" + autor;
-    }
+	public String getAutor() {
+		return autor;
+	}
+
+	@Override
+	public String toString() {
+		return "Material:" + "\n- titulo='" + getTitulo() + "\n- autor='" + autor;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
 }
