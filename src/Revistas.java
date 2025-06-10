@@ -1,19 +1,20 @@
-public class Revistas  extends Material{
-    private int numeroDaEdicao;
+package projeto_2fase;
 
-    public Revistas(String titulo, String autor, int numeroDaEdicao) {
-        super(titulo, autor);
-        this.numeroDaEdicao = numeroDaEdicao;
-    }
+public class Revistas extends Material {
+	private int numeroDaEdicao;
 
-    public int getNumeroDaEdicao() {
-        return numeroDaEdicao;
-    }
+	public Revistas(String titulo, String autor, int numeroDaEdicao) {
+		super(titulo, autor);
+		this.numeroDaEdicao = numeroDaEdicao;
+	}
 
-    @Override
-    public String toString() {
-        return "Revistas:\n- Titulo = " + super.getTitulo() +
-                "\n- Autor: " + super.getAutor() +
-                "\n- numeroDaEdicao = " + this.numeroDaEdicao;
-    }
+	public int getNumeroDaEdicao() {
+		return numeroDaEdicao;
+	}
+
+	@Override
+	public String toString() {
+		return "Revistas:\n- Titulo = " + super.getTitulo() + "\n- Autor: " + super.getAutor() + "\n- numeroDaEdicao = "
+				+ this.numeroDaEdicao;
+	}
 }
